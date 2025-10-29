@@ -10,9 +10,24 @@ import http from 'http';
 // Create an HTTP server that responds with "Hello, World!"
 // This is a basic example of using the http module to create a server.
 const server = http.createServer((req, res) => {
+  console.log(req);
+  console.log('Request URL:', req.url);
+  console.log('Request Method:', req.method);
+  console.log('Request Headers:', req.headers);
+
+  // Set response status and headers 
+  // Write HTML content to the response
   res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, World!\n');
+  res.setHeader('Content-Type', 'text/html');
+  res.write('<html>');
+  res.write('<head><title>Hello, World!</title></head>');
+  res.write('<body>');
+  res.write('<h1>Hello, World!</h1>');
+  res.write('</body>');
+  res.write('</html>');
+
+  // End the response
+  res.end();
 });
 
 // Server listens on port 3000
@@ -21,3 +36,5 @@ const server = http.createServer((req, res) => {
 server.listen(3000, () => {
   console.log('Server running at http://localhost:3000/');
 });
+
+// <_______
