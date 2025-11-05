@@ -6,6 +6,7 @@
 // os module -> provides operating system-related utility methods
 
 import http from 'http';
+import fs from 'fs';
 
 // Create an HTTP server that responds with "Hello, World!"
 // This is a basic example of using the http module to create a server.
@@ -21,6 +22,41 @@ const server = http.createServer((req, res) => {
     res.write('<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Send</button></form></body>');
     res.write('</html>');
     return res.end();
+  }
+
+  // Handle POST request to /message
+  if (req.url === '/message' && req.method === 'POST') {
+    const body = [];
+    // Data is sent in chunks
+    // Listen for data event on the request object
+    // Collect data chunks from the request
+    req.on('data', (chunk) => {
+      body.push(chunk);
+      console.log('Chunk received:', chunk);
+    });
+
+    // Listen for end event on the request object
+    // This event is triggered when all data has been received
+    //We add a return statement here to ensure that the response is only sent after processing the POST data
+    return req.on('end', () => {
+      const parsedBody = Buffer.concat(body).toString();
+      console.log('Parsed Body:', parsedBody);
+      // Extract message from the parsed body
+      const message = parsedBody.split('=')[1];
+      console.log('Message:', message);
+
+      // Write the extracted message to message.txt synchronously
+      // It will block the event loop until the file is written
+      // In a real-world application, consider using the asynchronous version fs.writeFile() for better performance
+      // fs.writeFileSync('message.txt', message);
+
+      // Write the extracted message to message.txt asynchronously
+      fs.writeFile('message.txt', message, (err) => {
+        //The callback function is called once the file writing is complete
+        res.writeHead(302, { 'Location': '/' });
+        return res.end();
+      });
+    });
   }
 
   // Set response status and headers 
