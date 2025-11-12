@@ -23,6 +23,7 @@ import { requestHandler } from './routes.js';
 // Create an HTTP server using the requestHandler function
 const server = http.createServer(requestHandler);
 
+
 // Server listens on port 3000
 // You can access it by navigating to http://localhost:3000/ in your web browser.
 // Keep the server running and listening for requests.
