@@ -1,4 +1,4 @@
-import http from 'http';
+// import http from 'http';
 import express from 'express';
 
 const app = express();
@@ -26,8 +26,15 @@ app.use((req, res, next) => {
   res.send("<h1>Hello, World!</h1>");
 });
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
-server.listen(3000, () => {
+// server.listen(3000, () => {
+//   console.log('Server running at http://localhost:3000/');
+// });
+
+// Start the Express server on port 3000
+// It listens for incoming requests and uses the defined middleware to handle them
+// No need to create an HTTP server manually with http.createServer
+app.listen(3000, () => {
   console.log('Server running at http://localhost:3000/');
 });
