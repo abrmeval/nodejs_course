@@ -9,21 +9,35 @@ const app = express();
 // req - The incoming request object
 // res - The outgoing response object
 // next - A callback function to pass control to the next middleware
-app.use((req, res, next) => {
-  console.log('Request URL:', req.url);
-  console.log('Request Method:', req.method);
-  console.log('Request Headers:', req.headers);
+// app.use((req, res, next) => {
+//   console.log('Request URL:', req.url);
+//   console.log('Request Method:', req.method);
+//   console.log('Request Headers:', req.headers);
 
-  // Call the next middleware in the stack
-  // If we had sent a response here, we wouldn't reach the next middleware
-  next();
-});
+//   // Call the next middleware in the stack
+//   // If we had sent a response here, we wouldn't reach the next middleware
+//   next();
+// });
 
 //You call next() to pass control to the next middleware
 // Or you can send a response if you want to end the request-response cycle
-app.use((req, res, next) => {
-  //This funtions sends a simple response to the client"
-  res.send("<h1>Hello, World!</h1>");
+// app.use((req, res, next) => {
+//   //This funtions sends a simple response to the client"
+//   res.send("<h1>Hello, World!</h1>");
+// });
+
+// Define a route handler for the '/add-product' URL
+// We define it before the default route to ensure it gets matched first
+app.use('/add-product', (req, res, next) => {  
+  // Send a simple HTML response to the client
+  res.send('<h1>The Add Product Page</h1>');
+});
+
+
+// Define a route handler for the root URL ('/') (Default route)
+app.use('/', (req, res, next) => {  
+  // Send a simple HTML response to the client
+  res.send('<h1>Hello, World!</h1>');
 });
 
 // const server = http.createServer(app);
