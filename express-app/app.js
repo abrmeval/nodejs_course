@@ -1,7 +1,13 @@
 // import http from 'http';
 import express from 'express';
+import bodyParser from 'body-parser';
 
 const app = express();
+
+
+// Middleware to parse URL-encoded bodies (from HTML forms)
+//With this middleware, we can access form data in req.body
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Middleware to log request details
 // Logs the URL, method, and headers of each incoming request
@@ -26,12 +32,36 @@ const app = express();
 //   res.send("<h1>Hello, World!</h1>");
 // });
 
+
 // Define a route handler for the '/add-product' URL
 // We define it before the default route to ensure it gets matched first
-app.use('/add-product', (req, res, next) => {  
+// app.use('/add-product', (req, res, next) => {  
+//   // Send a simple HTML response to the client
+//   res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>');
+// });
+
+// Define a route handler for the '/add-product' URL
+//We use app.get to specifically handle GET requests to this route
+app.get('/add-product', (req, res, next) => {  
   // Send a simple HTML response to the client
-  res.send('<h1>The Add Product Page</h1>');
+  res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>');
 });
+
+
+// app.use('/product', (req, res, next) => {
+//   // Handle the form submission from the '/add-product' route
+//   console.log(req.body); // Log the submitted form data (requires body-parser middleware to work)
+//   res.redirect('/'); // Redirect the user back to the root URL after form submission  
+// });
+
+// Define a route handler for the '/product' URL to handle POST requests
+//We use app.post to specifically handle POST requests to this route
+app.post('/product', (req, res, next) => {
+  // Handle the form submission from the '/add-product' route
+  console.log(req.body); // Log the submitted form data (requires body-parser middleware to work)
+  res.redirect('/'); // Redirect the user back to the root URL after form submission  
+});
+
 
 
 // Define a route handler for the root URL ('/') (Default route)

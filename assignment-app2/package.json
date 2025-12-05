@@ -1,12 +1,11 @@
 {
-  "name": "basics-app",
+  "name": "assignment-app2",
   "version": "1.0.0",
-  "description": "Node course basic app",
+  "description": "This is an asignmeent app",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "start-server": "node app.js"
+    "start": "nodemon app.js"
   },
   "author": "Abrahim Mejía Valdez",
   "license": "ISC",
@@ -14,7 +13,7 @@
     "nodemon": "^3.1.11"
   },
   "dependencies": {
+    "body-parser": "^2.2.1",
     "express": "^5.2.1"
-  },
-  "type": "module"
+  }
 }
