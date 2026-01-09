@@ -1,9 +1,10 @@
 // import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
+import adminRoutes from './routes/admin.js';
+import shopRoutes from './routes/shop.js';
 
 const app = express();
-
 
 // Middleware to parse URL-encoded bodies (from HTML forms)
 //With this middleware, we can access form data in req.body
@@ -42,10 +43,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Define a route handler for the '/add-product' URL
 //We use app.get to specifically handle GET requests to this route
-app.get('/add-product', (req, res, next) => {  
-  // Send a simple HTML response to the client
-  res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>');
-});
+// app.get('/add-product', (req, res, next) => {  
+//   // Send a simple HTML response to the client
+//   res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>');
+// });
 
 
 // app.use('/product', (req, res, next) => {
@@ -54,27 +55,41 @@ app.get('/add-product', (req, res, next) => {
 //   res.redirect('/'); // Redirect the user back to the root URL after form submission  
 // });
 
-// Define a route handler for the '/product' URL to handle POST requests
-//We use app.post to specifically handle POST requests to this route
-app.post('/product', (req, res, next) => {
-  // Handle the form submission from the '/add-product' route
-  console.log(req.body); // Log the submitted form data (requires body-parser middleware to work)
-  res.redirect('/'); // Redirect the user back to the root URL after form submission  
-});
+// // Define a route handler for the '/product' URL to handle POST requests
+// //We use app.post to specifically handle POST requests to this route
+// app.post('/product', (req, res, next) => {
+//   // Handle the form submission from the '/add-product' route
+//   console.log(req.body); // Log the submitted form data (requires body-parser middleware to work)
+//   res.redirect('/'); // Redirect the user back to the root URL after form submission  
+// });
 
 
 
-// Define a route handler for the root URL ('/') (Default route)
-app.use('/', (req, res, next) => {  
-  // Send a simple HTML response to the client
-  res.send('<h1>Hello, World!</h1>');
-});
+// // Define a route handler for the root URL ('/') (Default route)
+// app.use('/', (req, res, next) => {  
+//   // Send a simple HTML response to the client
+//   res.send('<h1>Hello, World!</h1>');
+// });
 
 // const server = http.createServer(app);
 
 // server.listen(3000, () => {
 //   console.log('Server running at http://localhost:3000/');
 // });
+
+
+// Use the admin routes defined in routes/admin.js
+// We prefix all admin routes with '/admin' 
+// This means that the routes defined in admin.js will be accessible under the '/admin' path
+app.use('/admin', adminRoutes);
+
+// Use the shop routes defined in routes/shop.js
+app.use(shopRoutes);
+
+// Middleware to handle 404 errors (Page Not Found)
+app.use((req, res, next) => {
+  res.status(404).send('<h1>Page Not Found</h1>');
+});
 
 // Start the Express server on port 3000
 // It listens for incoming requests and uses the defined middleware to handle them
