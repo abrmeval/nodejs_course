@@ -3,8 +3,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import adminRoutes from './routes/admin.js';
 import shopRoutes from './routes/shop.js';
+import { fileURLToPath } from 'url';
 
 const app = express();
+
+const path = await import('path');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Middleware to parse URL-encoded bodies (from HTML forms)
 //With this middleware, we can access form data in req.body
@@ -88,7 +92,8 @@ app.use(shopRoutes);
 
 // Middleware to handle 404 errors (Page Not Found)
 app.use((req, res, next) => {
-  res.status(404).send('<h1>Page Not Found</h1>');
+  // res.status(404).send('<h1>Page Not Found</h1>');
+  res.status(404).sendFile(path.join(__dirname, 'views', 'not-found.html'));
 });
 
 // Start the Express server on port 3000
