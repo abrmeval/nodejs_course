@@ -81,6 +81,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //   console.log('Server running at http://localhost:3000/');
 // });
 
+// Middleware to serve static files from the 'public' directory
+// This allows us to serve CSS, images, and client-side JavaScript files
+// The files in the 'public' folder can be accessed directly via their URL
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Use the admin routes defined in routes/admin.js
 // We prefix all admin routes with '/admin' 
