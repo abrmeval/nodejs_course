@@ -7,6 +7,15 @@ import { fileURLToPath } from 'url';
 
 const app = express();
 
+//app.set() to save settings in express to modify its behavior
+// Also you can use to save any custom setting you want to share
+// A templating engine allows us to generate HTML dynamically 
+// by embedding JavaScript code within our HTML files
+// We can then render these templates and send the resulting HTML to the client
+app.set('view engine', 'pug'); // Set Pug as the templating engine
+app.set('views', 'views'); // Set the directory for Pug templates (It's 'views' by default)
+
+
 const path = await import('path');
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

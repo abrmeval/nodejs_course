@@ -26,7 +26,11 @@ router.get('/', (req, res, next) => {
     // We set params to go up two levels to reach the views folder
     // Then we specify the shop.html file
     // This works in any operating system because we use path.join to construct the path
-    res.sendFile(path.join(rootDir, 'views', 'shop.html'));
+    // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
+
+    // Render the shop.pug template
+    // We simply call res.render and provide the name of the template file without the extension
+    res.render('shop');
 });
 
 export default router;
