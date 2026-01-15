@@ -1,7 +1,7 @@
 // import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
-import adminRoutes from './routes/admin.js';
+import {router as adminRoutes, products} from './routes/admin.js';
 import shopRoutes from './routes/shop.js';
 import { fileURLToPath } from 'url';
 
@@ -86,6 +86,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // The files in the 'public' folder can be accessed directly via their URL
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // Use the admin routes defined in routes/admin.js
 // We prefix all admin routes with '/admin' 
 // This means that the routes defined in admin.js will be accessible under the '/admin' path
@@ -97,7 +98,7 @@ app.use(shopRoutes);
 // Middleware to handle 404 errors (Page Not Found)
 app.use((req, res, next) => {
   // res.status(404).send('<h1>Page Not Found</h1>');
-  res.status(404).sendFile(path.join(__dirname, 'views', 'not-found.html'));
+  res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
 });
 
 // Start the Express server on port 3000

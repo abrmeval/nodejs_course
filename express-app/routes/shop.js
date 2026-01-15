@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import rootDir from '../util/path.js';
-
+import { products } from './admin.js';
 
 // Define __dirname for ES modules
 // const __filename = fileURLToPath(import.meta.url);
@@ -19,6 +19,8 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
     // Send a simple HTML response to the client
     // res.send('<h1>Hello, World!</h1>');
+
+    console.log(products);
 
     // Send the shop.html file as the response
     // We set params to go up two levels to reach the views folder

@@ -12,6 +12,13 @@ import rootDir from '../util/path.js';
 // Create a router object to define admin-related routes
 const router = express.Router();
 
+// It will hold all products added via the form
+// Data will be persisted throughout the app's lifecycle
+// Data can be accessed in other modules by importing it
+// While the server is running, the data will remain in memory
+// Rarely used in real-world apps, usually we use databases for persistence
+const products = [];
+
 // Define a route handler for the '/add-product' URL
 //We use app.get to specifically handle GET requests to this route
 // /admin/add-product because in app.js we use app.use('/admin', adminRoutes);
@@ -29,7 +36,10 @@ router.get('/add-product', (req, res, next) => {
 router.post('/add-product', (req, res, next) => {
     // Handle the form submission from the '/add-product' route
     console.log(req.body); // Log the submitted form data (requires body-parser middleware to work)
+
+    products.push({ title: req.body.title });
+
     res.redirect('/'); // Redirect the user back to the root URL after form submission  
 });
 
-export default router;
+export { router, products };
