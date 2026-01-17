@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{pageTitle}
+        link(rel="stylesheet", href="/styles/main.css")
+
+        // We can add more stylesheets or scripts here if needed
+        block styles
+    body 
+        header(class="main-header")
+            nav(class="main-header__nav")
+                ul(class="main-header__item-list")
+                    li(class="main-header__item")
+                        a(href="/"  class=(path === '/' ? 'active' : '')) Shop
+                    li(class="main-header__item")
+                        a(href="/admin/add-product" class=(path === '/admin/add-product' ? 'active' : '')) Add Product
+        // Main content block to be filled by child templates
+        block content
+
+        
+// We extend the main layout to maintain a consistent structure across pages
+// We define the content block to fill in the main layout's content area
+// This block will be replaced  by the 'block content' in the child templates

@@ -107,7 +107,10 @@ app.use(shopRoutes);
 // Middleware to handle 404 errors (Page Not Found)
 app.use((req, res, next) => {
   // res.status(404).send('<h1>Page Not Found</h1>');
-  res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+  // res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+
+  // Render the 404.pug template for unmatched routes
+  res.status(404).render('404', { pageTitle: 'Page Not Found' });
 });
 
 // Start the Express server on port 3000

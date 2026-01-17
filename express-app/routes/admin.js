@@ -27,7 +27,12 @@ router.get('/add-product', (req, res, next) => {
     //   res.send('<form action="/admin/add-product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>');
 
     // Send the add-product.html file as the response
-    res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
+    // res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
+
+    // Render the add-product.pug template
+    // we pass an object with data to the template
+    // we provide pageTitle and path variables to be used in the template
+    res.render('add-product', { pageTitle: 'Add Product', path: '/admin/add-product' });
 });
 
 // Define a route handler for the '/product' URL to handle POST requests

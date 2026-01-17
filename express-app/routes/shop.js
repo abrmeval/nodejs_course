@@ -32,7 +32,7 @@ router.get('/', (req, res, next) => {
 
     // Render the shop.pug template
     // We simply call res.render and provide the name of the template file without the extension
-    res.render('shop', { products: productsList, docTitle: 'Shop' });
+    res.render('shop', { products: productsList, pageTitle: 'Shop', path: '/' });
 });
 
 export default router;
