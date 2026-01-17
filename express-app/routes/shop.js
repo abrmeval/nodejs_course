@@ -28,9 +28,11 @@ router.get('/', (req, res, next) => {
     // This works in any operating system because we use path.join to construct the path
     // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
 
+    const productsList = products;
+
     // Render the shop.pug template
     // We simply call res.render and provide the name of the template file without the extension
-    res.render('shop');
+    res.render('shop', { products: productsList, docTitle: 'Shop' });
 });
 
 export default router;

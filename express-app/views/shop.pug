@@ -4,7 +4,11 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        title Document
+        // Dynamic title using Pug variable
+        // The variable 'docTitle' is passed from the Express route handler to this template
+        // We use #{variableName} syntax to embed the variable value
+        // Example: If docTitle is 'Shop', the title will be <title>Shop</title>
+        title #{docTitle}
         link(rel="stylesheet", href="/styles/main.css")
         link(rel="stylesheet", href="/styles/product.css")
     body 
@@ -15,3 +19,23 @@ html(lang="en")
                         a(class="active" href="/") Shop
                     li(class="main-header__item")
                         a(href="/admin/add-product") Add Product
+        main 
+        //Conditional rendering based on the products array
+        if products.length >0
+          .grid
+          // We use each loop to iterate over the products array passed from the Express route handler
+          // For each product, we create a card displaying its details
+          // The variable 'products' is expected to be an array of product objects
+          each product in products
+            article.card.product-item
+                header.card__header
+                    h1.product__title #{product.title}
+                .card__image
+                    img(src="https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png", alt="A Book")
+                .card__content
+                    h2.product__price $19.99
+                    p.product__description A very interesting book about so many even more interesting things!          
+                .card__actions
+                    button.btn Add to Cart
+        else
+            h2 No Products Found!
