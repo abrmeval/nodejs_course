@@ -4,17 +4,27 @@ import bodyParser from 'body-parser';
 import {router as adminRoutes, products} from './routes/admin.js';
 import shopRoutes from './routes/shop.js';
 import { fileURLToPath } from 'url';
+import ExpressHandlebars from 'express-handlebars';
 
 const app = express();
+
+// Set up Handlebars as the templating engine
+// app.engine() is used to register a new template engine with Express
+// unlike  pug, we need to register handlebars as a template engine before we can use it
+// because Handlebars is not built into Express like Pug, we need to set it up manually
+// We specify 'hbs' as the file extension for Handlebars templates
+app.engine("hbs", ExpressHandlebars({layoutsDir: "views/layouts/", defaultLayout: "main-layout", extname: "hbs"}));
 
 //app.set() to save settings in express to modify its behavior
 // Also you can use to save any custom setting you want to share
 // A templating engine allows us to generate HTML dynamically 
 // by embedding JavaScript code within our HTML files
 // We can then render these templates and send the resulting HTML to the client
-app.set('view engine', 'pug'); // Set Pug as the templating engine
-app.set('views', 'views'); // Set the directory for Pug templates (It's 'views' by default)
+// app.set('view engine', 'pug'); // Set Pug as the templating engine
 
+app.set('view engine', 'hbs'); // Set Handlebars as the templating engine
+
+app.set('views', 'views'); // Set the directory for Pug templates (It's 'views' by default)
 
 const path = await import('path');
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
