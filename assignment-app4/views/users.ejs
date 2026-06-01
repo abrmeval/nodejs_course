@@ -1,0 +1,25 @@
+<%- include('layout/head.ejs') %>
+    <link rel="stylesheet" href="/styles/users.css">
+    <link rel="stylesheet" href="/styles/forms.css">
+    <%- include('layout/header.ejs') %>
+
+        <main>
+            <% if (users.length> 0) { %>
+                <h1>Users</h1>
+                <p>List of all the users...</p>
+                <div class="grid">
+                    <% for (let user of users) { %>
+                        <article class="card product-item">
+                            <header class="card__header">
+                                <h1 class="product__title">
+                                    <%= user %>
+                                </h1>
+                            </header>
+                        </article>
+                        <% } %>
+                </div>
+                <% } else { %>
+                    <h1>No Users Found!</h1>
+                    <% } %>
+        </main>
+        <%- include('layout/end.ejs') %>
