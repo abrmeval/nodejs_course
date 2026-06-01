@@ -13,7 +13,7 @@ const app = express();
 // unlike  pug, we need to register handlebars as a template engine before we can use it
 // because Handlebars is not built into Express like Pug, we need to set it up manually
 // We specify 'hbs' as the file extension for Handlebars templates
-app.engine("hbs", ExpressHandlebars({layoutsDir: "views/layouts/", defaultLayout: "main-layout", extname: "hbs"}));
+// app.engine("hbs", ExpressHandlebars({layoutsDir: "views/layouts/", defaultLayout: "main-layout", extname: "hbs"}));
 
 //app.set() to save settings in express to modify its behavior
 // Also you can use to save any custom setting you want to share
@@ -21,10 +21,11 @@ app.engine("hbs", ExpressHandlebars({layoutsDir: "views/layouts/", defaultLayout
 // by embedding JavaScript code within our HTML files
 // We can then render these templates and send the resulting HTML to the client
 // app.set('view engine', 'pug'); // Set Pug as the templating engine
+// app.set('view engine', 'hbs'); // Set Handlebars as the templating engine
 
-app.set('view engine', 'hbs'); // Set Handlebars as the templating engine
+app.set('view engine', 'ejs'); // Set EJS as the templating engine
 
-app.set('views', 'views'); // Set the directory for Pug templates (It's 'views' by default)
+app.set('views', 'views'); // Set the directory for {template_engine} templates (It's 'views' by default)
 
 const path = await import('path');
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

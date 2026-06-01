@@ -1,0 +1,45 @@
+import express from 'express';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+import rootDir from '../util/path.js';
+
+// Create a router object to define admin-related routes
+const router = express.Router();
+
+// It will hold all products added via the form
+// Data will be persisted throughout the app's lifecycle
+// Data can be accessed in other modules by importing it
+// While the server is running, the data will remain in memory
+// Rarely used in real-world apps, usually we use databases for persistence
+const products = [];
+
+// Define a route handler for the '/add-product' URL
+//We use app.get to specifically handle GET requests to this route
+// /admin/add-product because in app.js we use app.use('/admin', adminRoutes);
+router.get('/add-product', (req, res, next) => {
+    // Send a simple HTML response to the client
+    //   res.send('<form action="/admin/add-product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>');
+
+    // Send the add-product.html file as the response
+    // res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
+
+    // Render the add-product.pug template
+    // we pass an object with data to the template
+    // we provide pageTitle and path variables to be used in the template
+    res.render('add-product', { pageTitle: 'Add Product', path: '/admin/add-product', isAddProduct: true, formsCSS: true, productCSS: true });
+});
+
+// Define a route handler for the '/product' URL to handle POST requests
+//We use app.post to specifically handle POST requests to this route
+// /admin/add-product because in app.js we use app.use('/admin', adminRoutes);
+router.post('/add-product', (req, res, next) => {
+    // Handle the form submission from the '/add-product' route
+    console.log(req.body); // Log the submitted form data (requires body-parser middleware to work)
+
+    products.push({ title: req.body.title });
+
+    res.redirect('/'); // Redirect the user back to the root URL after form submission  
+});
+
+export { router, products };

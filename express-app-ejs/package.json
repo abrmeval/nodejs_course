@@ -1,0 +1,23 @@
+{
+  "name": "basics-app",
+  "version": "1.0.0",
+  "description": "Node course basic app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "author": "Abrahim Mejía Valdez",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  },
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "express-handlebars": "3.0",
+    "pug": "^3.0.3"
+  },
+  "type": "module"
+}
