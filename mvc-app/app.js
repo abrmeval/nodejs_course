@@ -1,10 +1,10 @@
 // import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
-import {router as adminRoutes, products} from './routes/admin.js';
+import { router as adminRoutes } from './routes/admin.js';
 import shopRoutes from './routes/shop.js';
 import { fileURLToPath } from 'url';
-import ExpressHandlebars from 'express-handlebars';
+import { notFound } from './controllers/error.js';
 
 const app = express();
 
@@ -30,13 +30,7 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 // Middleware to handle 404 errors (Page Not Found)
-app.use((req, res, next) => {
-  // res.status(404).send('<h1>Page Not Found</h1>');
-  // res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
-
-  // Render the 404.pug template for unmatched routes
-  res.status(404).render('404', { pageTitle: 'Page Not Found' });
-});
+app.use(notFound);
 
 // Start the Express server on port 3000
 // It listens for incoming requests and uses the defined middleware to handle them
