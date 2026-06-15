@@ -1,4 +1,18 @@
-const products = [];
+import fs from 'fs'
+import path from 'path';
+
+const p = path.join(import.meta.dirname, '../', 'data', 'products.json');
+
+const getProductsFromFile = (callback) => {
+
+    fs.readFile(p, (err, content) => {
+        if (err) {
+            callback([]);
+            return;
+        }
+        callback(JSON.parse(content));
+    });
+}
 
 export class Product {
     constructor(title) {
@@ -6,10 +20,18 @@ export class Product {
     }
 
     save() {
-        products.push(this);
+        getProductsFromFile((products) => {
+            //"this" refers to the class Product
+            products.push(this)
+            // fs.mkdir(p)
+            fs.writeFile(p, JSON.stringify(products), (err) => {
+                if (err)
+                    console.log(err);
+            })
+        });
     }
-    
-    static fetchAll() {
-        return products;
+
+    static fetchAll(callback) {
+        getProductsFromFile(callback)
     }
 }
