@@ -1,12 +1,14 @@
 import path from 'path';
 import express from 'express';;
-import { getProducts, getIndex, getCart, getCheckout , getOrders} from '../controllers/shop.js';
+import { getProducts, getIndex, getCart, getCheckout, getOrders, getProductDetails, addToCart } from '../controllers/shop.js';
 
 const router = express.Router();
 
 router.get('/', getIndex);
 router.get('/products', getProducts);
+router.get('/products/:productId', getProductDetails);
 router.get('/cart', getCart);
+router.post('/cart', addToCart);
 router.get('/orders', getOrders);
 router.get('/checkout', getCheckout);
 

@@ -16,6 +16,7 @@ const getProductsFromFile = (callback) => {
 
 export class Product {
     constructor(title, imageUrl, description, price) {
+        this.id = Math.random().toString();
         this.title = title;
         this.imageUrl = imageUrl;
         this.description = description;
@@ -35,6 +36,13 @@ export class Product {
     }
 
     static fetchAll(callback) {
-        getProductsFromFile(callback)
+        getProductsFromFile(callback);
+    }
+
+    static findById(id, callback) {
+        getProductsFromFile((products) => {
+            const product = products.find(p => p.id === id);
+            callback(product);
+        });
     }
 }
