@@ -1,4 +1,5 @@
 import { Product } from '../models/product.js';
+import { Cart } from '../models/cart.js';
 
 export const getIndex = (req, res, next) => {
     Product.fetchAll(productsList => {
@@ -27,7 +28,7 @@ export const getProductDetails = (req, res, next) => {
 
         if (!product)
             return res.status(404).render('404', { path: req.url, pageTitle: 'Product Not Found' });
-        
+
         res.render('shop/product-detail', {
             product: product,
             pageTitle: product.title,
@@ -44,8 +45,11 @@ export const getCart = (req, res, next) => {
 };
 
 export const addToCart = (req, res, next) => {
-const productId = req.body.productId;
-res.redirect('/cart');
+    const productId = req.body.productId;
+    Product.findById(productId, (product) => {
+        Cart.addProduct(productId, product.price);
+    });
+    res.redirect('/cart');
 };
 
 export const getOrders = (req, res, next) => {
