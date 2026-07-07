@@ -1,6 +1,6 @@
 import path from 'path';
 import express from 'express';
-import { getAddProduct, postAddProduct, getUpdateProduct, getProducts } from '../controllers/admin.js';
+import { getAddProduct, postAddProduct, getUpdateProduct, postUpdateProduct, getProducts, postDeleteProduct } from '../controllers/admin.js';
 
 const router = express.Router();
 
@@ -17,11 +17,9 @@ router.post('/add-product', postAddProduct);
 router.get('/edit-product/:productId', getUpdateProduct);
 
 // /admin/edit-product => POST
-router.post('/edit-product', (req, res, next) => {
+router.post('/edit-product', postUpdateProduct);
 
-});
-
-
+router.post('/delete-product', postDeleteProduct);
 
 export { router };
 
