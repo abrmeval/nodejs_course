@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path';
+import { Cart } from '../models/cart.js';
 
 const p = path.join(import.meta.dirname, '../', 'data', 'products.json');
 
@@ -37,8 +38,8 @@ export class Product {
     update() {
         getProductsFromFile((products) => {
             const productIndex = products.findIndex(prod => prod.id === this.id);
-            
-            if (productIndex == -1) 
+
+            if (productIndex == -1)
                 return;
 
             products[productIndex] = this;
@@ -63,15 +64,16 @@ export class Product {
     static deleteById(id, callback) {
         getProductsFromFile((products) => {
             const productIndex = products.findIndex(prod => prod.id === id);
-            
-            if (productIndex == -1) 
-                return;
-            
-            products.splice(productIndex, 1);
 
+            if (productIndex == -1)
+                return;
+
+            products.splice(productIndex, 1);
+            
             fs.writeFile(p, JSON.stringify(products), (err) => {
                 if (err)
                     console.log(err);
+                Cart.deleteProduct({ id: id });
                 callback();
             })
         });
