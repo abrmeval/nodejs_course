@@ -69,10 +69,12 @@ export class Product {
                 return;
 
             products.splice(productIndex, 1);
-            
+
             fs.writeFile(p, JSON.stringify(products), (err) => {
-                if (err)
+                if (err) {
                     console.log(err);
+                    return;
+                }
                 Cart.deleteProduct({ id: id });
                 callback();
             })
